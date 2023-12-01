@@ -1,2 +1,2 @@
 default:
-	python3 main.py actual
+	@python3 main.py

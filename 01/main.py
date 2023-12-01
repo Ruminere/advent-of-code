@@ -1,8 +1,8 @@
-import sys
-import re
+import sys, re
 
 def __main__():
-    fh = open(sys.argv[1] + ".in")
+    filename = "actual"
+    fh = open(filename + ".in")
     ans1 = 0
     ans2 = 0
     for line in fh:
@@ -30,8 +30,6 @@ def __main__():
     fh.close()
     print("1:", ans1)
     print("2:",ans2)
-
-    
 
 # ==================================================
 
