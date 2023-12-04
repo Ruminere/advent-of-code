@@ -23,13 +23,11 @@ def __main__():
         # part 2
         card_repeats[current_game] = card_repeats.get(current_game, 0) + 1
         extend = calculate_wins(win, card)
-        print(current_game, extend)
-        for i in range(1, extend+1):
+        for i in range(1, extend+1): # count copies
             card_repeats[current_game + i] = card_repeats.get(current_game + i,0) + card_repeats[current_game]
-
-    print(card_repeats)
-    ans2 = sum(card_repeats.values())
     fh.close()
+
+    ans2 = sum(card_repeats.values())
     print("1:", ans1)
     print("2:", ans2)
 
