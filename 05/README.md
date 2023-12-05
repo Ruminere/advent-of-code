@@ -1,0 +1,4 @@
+# Problem 5
+Part 1 was fine, but I at first tried part 2 the naive way and it took way too long for everything to be appended to my array in the first place (and I likely would've received an OverflowError at some point), much less map them to other values. Then I decded to code everything as a series of ranges and then split them, and it was the splitting that gave me the most trouble in terms of implementation (in my defense, it was 12 AM). My immediate reaction to part 2 went like this:
+> Oh my goodness this was disgusting to code, thank goodness it worked first try for me when I got the algorithm down 
+... because I'd made sure every smaller part worked beforehand.
