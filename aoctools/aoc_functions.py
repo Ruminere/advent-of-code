@@ -80,3 +80,26 @@ def grid_print(grid: list):
         for val in row:
             rowstr += str(val)
         print(rowstr)
+
+# STRING TO NUMBER COMPREHENSION
+
+def raw_to_int(raw: str, neg=True):
+    '''
+    Returns a list of all integers in a string. Includes negative symbols by default.
+    '''
+    to_find = r"-?\d+" if neg else r"\d+"
+    return [int(n) for n in re.findall(to_find, raw.strip())]
+
+def raw_to_int(raw: str, neg=True):
+    '''
+    Returns a list of all digits in a string. Includes negative symbols by default.
+    '''
+    to_find = r"-?\d" if neg else r"\d"
+    return [int(n) for n in re.findall(to_find, raw.strip())]
+
+def raw_to_float(raw: str, neg=True):
+    '''
+    Returns a list of all decimals in a string. Includes negative symbols by default.
+    '''
+    to_find = r"-?\d*\.?\d+" if neg else r"\d*\.?\d+"
+    return [float(n) for n in re.findall(to_find, raw.strip())]
