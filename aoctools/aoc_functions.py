@@ -26,6 +26,20 @@ directions = {
 
 dirs = directions
 
+# UTILITY
+
+def lmap(func, *iterable):
+    '''
+    Shorthand for list(map(func, *iterable)).
+    '''
+    return list(map(func, iterable))
+
+def rsorted(iterable, key=None):
+    '''
+    Shorthand for sorted(iterable, reverse=True).
+    '''
+    return sorted(iterable, key=key, reverse=True)
+
 # GRID FUNCTIONS
 
 def grid_in_bounds(grid: list, row: int, col: int):
