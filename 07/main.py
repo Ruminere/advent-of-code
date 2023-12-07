@@ -3,6 +3,8 @@ sys.path.append('../')
 from aoctools.aoc_functions import *
 from collections import Counter
 
+part = 1
+
 def __main__():
     filename = "actual"
     fh = open(filename + ".in")
@@ -15,17 +17,25 @@ def __main__():
         raw = line.strip().split()
         hands.append( [raw[0], int(raw[1])] )
     fh.close()
-    for hand in hands:
-        determine_type(hand)
     
-    hands.sort(key=lambda hands: hands[-1])
-    order(hands)
-    ans1 = winnings(hands)
+    ans1 = calculate_winnings(hands)
+    global part
+    part = 2
+    ans2 = calculate_winnings(hands)
 
     print("1:", ans1)
     print("2:", ans2)
 
 # ==================================================
+
+def calculate_winnings(hands):
+    for hand in hands:
+        determine_type(hand)
+
+    hands.sort(key=lambda hands: hands[-1])
+
+    order(hands)
+    return winnings(hands)
 
 def determine_type(hand):
     '''
@@ -33,8 +43,11 @@ def determine_type(hand):
     simply appends stuff to the end of hand
     '''
     hist = Counter(hand[0])
-    joker = hist["J"]
-    del hist["J"]
+    joker = 0
+    if part == 2:
+        joker = hist["J"]
+        del hist["J"]
+        
     
     vals = list(hist.values())
     vals.sort(reverse=True)
@@ -53,8 +66,7 @@ def split_tie(hand1, hand2):
     '''
     1 if hand1 is worse else 2
     '''
-    # ranks = "AKQJT98765432"
-    ranks = "AKQT98765432J"
+    ranks = "AKQJT98765432" if part == 1 else "AKQT98765432J"
     card1 = hand1[0]
     card2 = hand2[0]
     for i in range(len(card1)):
