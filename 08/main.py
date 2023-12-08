@@ -1,4 +1,4 @@
-import sys, ast
+import sys
 sys.path.append('../')
 from aoctools.aoc_functions import *
 
@@ -7,9 +7,6 @@ def main():
 
     ans1 = 0
     ans2 = 0
-    
-    n = 0
-    hands = []
 
     with open(filename + ".in") as fh:
         lines = fh.readlines()
@@ -24,11 +21,30 @@ def main():
         raw1 = raw1.split(", ")
         nodes[raw[0]] = tuple(raw1)
 
+    ans1 = part_1(nodes, directions)
+    ans2 = part_2(nodes, directions)
+
+    print("1:", ans1)
+    print("2:", ans2)
+
+# ==================================================
+
+def part_1(nodes, directions):
+    current = "AAA"
+    steps = 0
+    while True:
+        dir_next = directions[steps % len(directions)]
+        current = get_node(nodes, current, dir_next)
+        steps += 1
+        if current == "ZZZ":
+            break
+    return steps
+
+def part_2(nodes, directions):
     currents = []
     for node in nodes.keys():
         if node[-1] == "A":
             currents.append(node)
-    print(currents)
 
     all_steps = []
     for current in currents:
@@ -40,24 +56,8 @@ def main():
             if current[-1] == "Z":
                 break
         all_steps.append(steps)
-
-    ans2 = math.lcm(*all_steps)
-
-    print("1:", ans1)
-    print("2:", ans2)
-
-# ==================================================
-
-def part_1(nodes):
-    current = "AAA"
-    steps = 0
-    while True:
-        dir_next = directions[steps % len(directions)]
-        current = get_node(nodes, current, dir_next)
-        steps += 1
-        if current == "ZZZ":
-            break
-    return steps
+    
+    return math.lcm(*all_steps)
 
 def get_node(nodes, current, direction):
     return nodes[current][0] if direction == "L" else nodes[current][1]
