@@ -84,6 +84,7 @@ def file_to_grid(filename: str, start=0, to_int=True):
                 row = [int(val) for val in row]
             grid.append(row)
     return grid
+ftg = file_to_grid
 
 def grid_print(grid: list):
     '''
