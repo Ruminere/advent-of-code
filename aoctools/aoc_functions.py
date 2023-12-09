@@ -32,7 +32,7 @@ def lmap(func, *iterable):
     '''
     Shorthand for list(map(func, *iterable)).
     '''
-    return list(map(func, iterable))
+    return list(map(func, *iterable))
 
 def rsorted(iterable, key=None):
     '''
@@ -103,13 +103,16 @@ def raw_to_int(raw: str, neg=True):
     '''
     to_find = r"-?\d+" if neg else r"\d+"
     return [int(n) for n in re.findall(to_find, raw.strip())]
+rti = raw_to_int
 
-def raw_to_int(raw: str, neg=True):
+def raw_to_digits(raw: str, neg=True):
     '''
     Returns a list of all digits in a string. Includes negative symbols by default.
     '''
     to_find = r"-?\d" if neg else r"\d"
     return [int(n) for n in re.findall(to_find, raw.strip())]
+raw_to_dig = raw_to_digits
+rtd = raw_to_digits
 
 def raw_to_float(raw: str, neg=True):
     '''
@@ -117,3 +120,4 @@ def raw_to_float(raw: str, neg=True):
     '''
     to_find = r"-?\d*\.?\d+" if neg else r"\d*\.?\d+"
     return [float(n) for n in re.findall(to_find, raw.strip())]
+rtf = raw_to_float
