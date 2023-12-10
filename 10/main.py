@@ -14,7 +14,7 @@ S is the starting position of the animal; there is a pipe on this tile, but your
 '''
 
 def main():
-    testing = 1
+    testing = 0
     filename = "actual" if not testing else "test"
 
     ans1 = 0
@@ -31,9 +31,11 @@ def main():
     raw = bfs(grid, start)
     ans1 = raw[0]
 
-    dist = raw[1]
-    clean_grid(grid, dist)
-    grid_print(grid)
+    loop = list(raw[1].keys())
+    clean_grid(grid, loop)
+    # grid_print(grid)
+
+    ans2 = find_enclosed(grid, loop)
 
     print("1:", ans1)
     print("2:", ans2)
@@ -49,6 +51,11 @@ dirs = {"|": [(-1,0),(1,0)],
         ".": [],
         "S": [(-1,0),(1,0),(0,-1),(0,1)]}
 
+d = {(-1,0):(1,0),
+     (1,0):(-1,0),
+     (0,1):(0,-1),
+     (0,-1):(0,1)}
+
 def gcn(grid: list, row: int, col: int, sign: str):
     '''
     Takes a grid coordinate and returns the surrounding coordinates.
@@ -57,11 +64,6 @@ def gcn(grid: list, row: int, col: int, sign: str):
         raise ValueError("grid coordinate is out of bounds")
 
     ans = []
-    
-    d = {(-1,0):(1,0),
-         (1,0):(-1,0),
-         (0,1):(0,-1),
-         (0,-1):(0,1)}
     
     # print("current", (row,col), dirs[sign])
     for coord in d.keys():
@@ -90,10 +92,6 @@ def bfs(grid, start):
     while len(to_explore) > 0:
         current = to_explore.pop(0)
         nbrs = gcn(grid, current[0], current[1], grid[current[0]][current[1]])
-        # print("current", current)
-        # print("nbrs", nbrs)
-        # print("explore", to_explore)
-        # print("dist", dist)
         for nbr in nbrs:
             nbr_dist = dist[current] + 1
             if nbr not in dist.keys():
@@ -107,15 +105,63 @@ def bfs(grid, start):
             high = val
     return high, dist
 
-def clean_grid(grid, dist):
+def clean_grid(grid, loop):
     '''
     Modifies grid.
     '''
-    loop = dist.keys()
     for i in range(len(grid)):
         for j in range(len(grid[i])):
-            if (i,j) not in dist.keys():
+            if (i,j) not in loop:
                 grid[i][j] = "."
+
+def find_enclosed(grid, loop):
+    enclosed = []
+    for i in range(len(grid)):
+        print(i)
+        for j in range(len(grid[i])):
+            if not grid[i][j] == "." or not is_bounded(grid, loop, i, j):
+                continue
+            if is_enclosed(grid, i, j):
+                enclosed.append((i,j))
+    # print("enclosed", enclosed)
+    return len(enclosed)
+            
+def is_bounded(grid, loop, row, col):
+    dd = d.keys()
+    for ddd in dd:
+        row_new = row
+        col_new = col
+        while True:
+            row_new += ddd[0]
+            col_new += ddd[1]
+            if not in_bounds(grid,row_new,col_new):
+                return False
+            if (row_new, col_new) in loop:
+                break
+    return True
+
+def is_enclosed(grid, row, col):
+    ddd = (0,-1)
+    row_new = row
+    col_new = col
+    count = 0
+    while True:
+        row_new += ddd[0]
+        col_new += ddd[1]
+        # if row == 3 and col == 14:
+        #     print(row_new,col_new)
+        if not in_bounds(grid,row_new,col_new):
+            break
+        valid = ["|","L","J","S"]
+        # if row == 3 and col == 14:
+        #     print(grid[row_new][col_new])
+        if grid[row_new][col_new] in valid:
+            # if row == 3 and col == 14:
+            #     print("valid")
+            count += 1
+    # if row == 3 and col == 14:
+    #     print(count)
+    return count % 2 != 0    
 
 # ==================================================
 
