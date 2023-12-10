@@ -40,6 +40,12 @@ def rsorted(iterable, key=None):
     '''
     return sorted(iterable, key=key, reverse=True)
 
+def rlen(iterable):
+    '''
+    Shorthand for range(len(iterable)).
+    '''
+    return range(len(iterable))
+
 # GRID FUNCTIONS
 
 def grid_in_bounds(grid: list, row: int, col: int):
@@ -64,15 +70,16 @@ def grid_coord_neighobors(grid: list, row: int, col: int):
         if in_bounds(grid, row_new, col_new):
             ans.append( (row_new, col_new) )
     return ans
-coord_neighbors = grid_coord_neighobors
+gcn = grid_coord_neighobors
 
 def grid_neighbors(grid: list, row: int, col: int):
     '''
     Returns a list of all neighboring values surrounding the element with the given coordinates.
     '''
-    return [grid[coord[0]][coord[1]] for coord in coord_neighbors(grid, row, col)]
+    return [grid[coord[0]][coord[1]] for coord in grid_coord_neighobors(grid, row, col)]
+gn = grid_neighbors
 
-def file_to_grid(filename: str, start=0, to_int=True):
+def file_to_grid(filename: str, start=0, to_int=False):
     '''
     Reads a file and converts it to a grid starting from the starting line. Converts to integers if the setting is on.
     '''
