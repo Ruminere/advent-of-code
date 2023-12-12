@@ -10,30 +10,24 @@ def main():
     ans1 = 0
     ans2 = 0
 
-    grid = ftg(filename)
-
     lines = []
     with open(filename + ".in") as fh:
         for line in fh:
             line = line.strip()
             lines.append(line)
-    print(lines)
 
-    count = 0
     for line in lines:
-        print(count)
         spring_raw, cont_raw = line.split()
         cont_raw = [int(i) for i in cont_raw.split(",")]
         spring = spring_raw
         cont = [i for i in cont_raw]
-        for i in range(4):
+        for _ in range(4):
             spring += "?" + spring_raw
             cont.extend(cont_raw)
-        print(spring)
 
-        # ans1 += num_arrangements(spring_raw, cont_raw, 0,0,0)
+        ans1 += num_arrangements(spring_raw, cont_raw, 0,0,0)
+        calculated.clear()
         ans2 += num_arrangements(spring, cont, 0,0,0)
-        count += 1
         calculated.clear()
     
     print("1:", ans1)
