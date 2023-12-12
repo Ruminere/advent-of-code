@@ -56,27 +56,30 @@ def grid_in_bounds(grid: list, row: int, col: int):
     return row >= 0 and row < dim[0] and col >= 0 and col < dim[1]
 in_bounds = grid_in_bounds
 
-def grid_coord_neighobors(grid: list, row: int, col: int):
+def grid_neighbors(grid: list, row: int, col: int, diagonal=True, actual=False):
     '''
-    Takes a grid coordinate and returns the surrounding coordinates.
+    Takes a grid coordinate and returns either:
+    - surrounding coordinates, or
+    - surrounding values.
     '''
     if not in_bounds(grid, row, col):
         raise ValueError("grid coordinate is out of bounds")
 
-    ans = []
-    for coord in itertools.islice(dirs.values(),8):
+    coords = []
+    keys = ["U","D","L","R"]
+    if diagonal:
+        keys.extend(["NW","NE","SW","SE"])
+    for key in keys:
+        coord = directions[key]
         row_new = row + coord[0]
         col_new = col + coord[1]
         if in_bounds(grid, row_new, col_new):
-            ans.append( (row_new, col_new) )
-    return ans
-gcn = grid_coord_neighobors
-
-def grid_neighbors(grid: list, row: int, col: int):
-    '''
-    Returns a list of all neighboring values surrounding the element with the given coordinates.
-    '''
-    return [grid[coord[0]][coord[1]] for coord in grid_coord_neighobors(grid, row, col)]
+            coords.append( (row_new, col_new) )
+    if not actual:
+        return coords
+    else:
+        return [grid[coord[0]][coord[1]] for coord in coords]
+get_neighbors = grid_neighbors
 gn = grid_neighbors
 
 def file_to_grid(filename: str, start=0, to_int=False):
