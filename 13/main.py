@@ -22,22 +22,18 @@ def main():
         else:
             grid.append(list(line))
 
-    # print(row_flipped(grids[1],3))
-
     for grid in grids:
-        # raw1 = find_flipped(grid)
-        # print(raw1)
-        # if raw1[0] == -1:
-        #     ans1 += raw1[1]+1
-        # else:
-        #     ans1 += 100 * (raw1[0]+1)
+        raw1 = find_flipped(grid)
+        if raw1[0] == -1:
+            ans1 += raw1[1]+1
+        else:
+            ans1 += 100 * (raw1[0]+1)
 
         raw2 = find_flipped_fix(grid)
-        print(raw2)
         if raw2[0] == -1:
-            ans1 += raw2[1]+1
+            ans2 += raw2[1]+1
         else:
-            ans1 += 100 * (raw2[0]+1)
+            ans2 += 100 * (raw2[0]+1)
         
     print("1:", ans1)
     print("2:", ans2)
@@ -45,13 +41,10 @@ def main():
 # ==================================================
 
 def find_flipped(grid):
-    # grid_print(grid)
     for i in range(len(grid)-1):
-        print("check row", i)
         if row_flipped(grid, i):
             return [i,-1]
     for i in range(len(grid[0])-1):
-        print("check col", i)
         if col_flipped(grid,i):
             return [-1,i]
     return [-1,-1]
@@ -63,7 +56,6 @@ def col_flipped(grid, col):
     dim = len(grid[0])
     i = 0
     while col-i >= 0 and col+1+i < dim:
-        print(col-i, col+i+1)
         one = [row[col-i] for row in grid]
         two = [row[col+1+i] for row in grid]
         if not all(one[i] == two[i] for i in rlen(one)):
@@ -75,13 +67,10 @@ def row_flipped(grid, row):
     return col_flipped(numpy.transpose(grid), row)
 
 def find_flipped_fix(grid):
-    grid_print(grid)
     for i in range(len(grid)-1):
-        print("check row", i)
         if row_flipped_fix(grid, i):
             return [i,-1]
     for i in range(len(grid[0])-1):
-        print("check col", i)
         if col_flipped_fix(grid,i):
             return [-1,i]
     return [-1,-1]
@@ -94,16 +83,12 @@ def col_flipped_fix(grid, col):
     i = 0
     count = 0
     while col-i >= 0 and col+1+i < dim:
-        print(col-i, col+i+1)
         one = [row[col-i] for row in grid]
         two = [row[col+1+i] for row in grid]
-        print(one)
-        print(two)
         for j in rlen(one):
             if one[j] != two[j]:
                 count += 1
         i += 1
-    print(count)
     return count == 1
 
 def row_flipped_fix(grid, row):
