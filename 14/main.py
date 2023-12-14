@@ -6,10 +6,6 @@ import itertools as its
 def main():
     testing = 0
     filename = "actual" if not testing else "test"
-    file = filename + ".in"
-
-    ans1 = 0
-    ans2 = 0
 
     grid = ftg(filename)
 
@@ -21,10 +17,10 @@ def main():
                 rounded.append( [i,j] )
             elif grid[i][j] == "#":
                 cubed.append( (i,j) )
-    print(calc(grid, rounded, cubed))
+    
+    ans1 = calc(grid, rounded, cubed)
         
     print("1:", ans1)
-    print("2:", ans2)
 
 # ==================================================
 
@@ -48,17 +44,13 @@ def shift(grid, rounded, cubed, col):
     for i in rounded:
         if i[1] == col:
             col_rounded.append(i)
-    
-    print(col_cubed, col_rounded)
 
     push = {}
     for r in col_rounded:
-        print(r)
         key = (-1,0)
         for i in rlen(col_cubed):
             if r[0] < col_cubed[i][0]:
                 key = col_cubed[i-1]
-                print("key:",key)
                 push[key] = push.get(key,0) + 1
                 break
     return push
