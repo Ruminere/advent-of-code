@@ -1,7 +1,11 @@
-# Problem 13
+# Problem 14
 | | Part 1 | Part 2 |
 |---|---|---|
-| Rank | 1747 | 1451 |
-| Time | 0:26:04 | 0:37:41 |
+| Rank | 4386 | 16978 |
+| Time | 00:28:13 | 12:35:01 |
 
-I spent way too debugging part 2 because I used `i` as my iteration variable and I, out of habit, called my inner loop iteration value `i` as well. This was a pretty chill problem and I wasn't really trying for speed (although sub-2000 for both parts is nice), and I'm grateful for that since I'm not feeling well today.
+I started this question right when it dropped.
+
+For part 1, I used a dictionary-based solution where I stated how many rounded rocks were leaning against a cubed rock. I thought the solution was more clever than manipulating the grid, because I was expecting something with regards to that.
+
+Then come part 2 where I realize I should've just implemented grid manipulation in the first place. Hooray! I knew from reading the problem that the grid would cycle, but I knew it would take me a decent amount of time to implement everything, so I went to bed. Then in the morning I implemented grid manipulation and shifted, then calculated the cycle length and got the answer from there.
