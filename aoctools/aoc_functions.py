@@ -1,6 +1,6 @@
 import math, re
 import itertools
-import os, sys
+import os, sys, copy
 
 # VARIABLES
 
@@ -40,11 +40,11 @@ def rsorted(iterable, key=None):
     '''
     return sorted(iterable, key=key, reverse=True)
 
-def rlen(iterable):
+def rlen(iterable, rev=False):
     '''
     Shorthand for range(len(iterable)).
     '''
-    return range(len(iterable))
+    return range(len(iterable)) if not rev else range(len(iterable)-1,-1,-1)
 
 # GRID FUNCTIONS
 
@@ -96,15 +96,31 @@ def file_to_grid(filename: str, start=0, to_int=False):
     return grid
 ftg = file_to_grid
 
+def grid_rotate(grid: list, times=1):
+    '''
+    Rotates the grid clockwise. Rotates once by default.
+    '''
+    tmp = copy.deepcopy(grid)
+    for _ in range(times):
+        tmp = [list(reversed(i)) for i in zip(*tmp)]
+    return tmp
+
+def grid_str(grid: list):
+    '''
+    Returns the string representation of a grid of characters.
+    '''
+    rowstr = ""
+    for row in grid:
+        for val in row:
+            rowstr += str(val)
+        rowstr += "\n"
+    return rowstr
+
 def grid_print(grid: list):
     '''
     Prints a grid of characters.
     '''
-    for row in grid:
-        rowstr = ""
-        for val in row:
-            rowstr += str(val)
-        print(rowstr)
+    print(grid_str(grid))
 
 # STRING TO NUMBER COMPREHENSION
 
