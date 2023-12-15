@@ -87,12 +87,18 @@ def file_to_grid(filename: str, start=0, to_int=False):
     Reads a file and converts it to a grid starting from the starting line. Converts to integers if the setting is on.
     '''
     grid = []
+    file = filename
+    file += ".in" if file[-3:] != ".in" else ""
+    count = 0
     with open(filename + ".in") as fh:
         for line in fh:
+            if count < start:
+                continue
             row = list(line.strip())
             if to_int:
                 row = [int(val) for val in row]
             grid.append(row)
+            count += 1
     return grid
 ftg = file_to_grid
 
