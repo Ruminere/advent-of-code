@@ -1,11 +1,9 @@
-# Problem 14
+# Problem 15
 | | Part 1 | Part 2 |
 |---|---|---|
-| Rank | 4386 | 16978 |
-| Time | 00:28:13 | 12:35:01 |
+| Rank | 22682 | 19174 |
+| Time | 08:08:44 | 08:56:55 |
 
-I started this question right when it dropped.
+I don't really feel like competing in the leaderboard due to timezone shifts. It was 23:00 (CST/GMT-6) when AoC started, but now it's 00:00 (EST/GMT-5).
 
-For part 1, I used a dictionary-based solution where I stated how many rounded rocks were leaning against a cubed rock. I thought the solution was more clever than manipulating the grid, because I was expecting something with regards to that.
-
-Then come part 2 where I realize I should've just implemented grid manipulation in the first place. Hooray! I knew from reading the problem that the grid would cycle, but I knew it would take me a decent amount of time to implement everything, so I went to bed. Then in the morning I implemented grid manipulation and shifted, then calculated the cycle length and got the answer from there.
+These questions were nice and quick, though, and I actually found use for the DefaultDict. It was a nice start to the morning.
