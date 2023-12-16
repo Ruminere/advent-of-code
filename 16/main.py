@@ -15,11 +15,23 @@ def main():
     grid = ftg(file)
 
     ans1 = fire_beam(grid)
+    ans2 = beam(grid)
     
     print("1:", ans1)
     print("2:", ans2)
 
 # ==================================================
+
+def beam(grid: list):
+    dim = (len(grid),len(grid[0]))
+    ans = 0
+    for i in range(0,dim[0]):
+        ans = max(ans, fire_beam(grid, ( (i,0), "R")))
+        ans = max(ans, fire_beam(grid, ( (i,dim[1]-1), "L")))
+    for i in range(0,dim[1]):
+        ans = max(ans, fire_beam(grid, ( (0,i), "D")))
+        ans = max(ans, fire_beam(grid, ( (dim[0]-1,i), "U")))
+    return ans
 
 dirs = {"U": (-1, 0),
         "D": (1, 0),
@@ -82,11 +94,11 @@ def get_next(grid: list, row: int, col: int, d: str):
 
     return ans
 
-def fire_beam(grid):
+def fire_beam(grid, start=((0,0),"R")):
     close = []
-    progress = [((0,0),"R")]
+    progress = deque([start])
     while len(progress) > 0:
-        current = progress.pop(0)
+        current = progress.pop()
         coords = current[0]
         nbrs = get_next(grid, coords[0],coords[1],current[1])
         for nbr in nbrs:
