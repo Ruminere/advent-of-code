@@ -4,6 +4,8 @@ from aoctools.aoc_functions import *
 import itertools as it
 from collections import defaultdict, Counter, deque
 
+part = 1
+
 def main():
     testing = 0
     filename = "actual" if not testing else "test"
@@ -15,7 +17,9 @@ def main():
     grid = ftg(file, to_int=True)
 
     ans1 = dijkstra(grid)
-    # ans2 = beam(grid)
+    global part
+    part = 2
+    ans2 = dijkstra(grid)
     
     print("1:", ans1)
     print("2:", ans2)
@@ -28,7 +32,7 @@ def get_neighbors(grid: list, row: int, col: int, curr_dir: str, times: int):
     '''
     if not in_bounds(grid, row, col):
         raise ValueError("grid coordinate is out of bounds")
-
+    
     coords = []
     keys = {"U":0,"L":1,"D":2,"R":3}
     for key in keys:
@@ -36,8 +40,13 @@ def get_neighbors(grid: list, row: int, col: int, curr_dir: str, times: int):
         if curr_dir != "" and (keys[key]+2)%4 == keys[curr_dir]:
             continue
         # direction step check
-        if key == curr_dir and times == 3:
+        if part == 1 and (key == curr_dir and times == 3):
             continue
+        if part == 2 and curr_dir != "":
+            if key == curr_dir and times == 10:
+                continue
+            if key != curr_dir and times < 4:
+                continue
         t = times + 1 if key == curr_dir else 1
         coord = directions[key]
         row_new = row + coord[0]
@@ -48,7 +57,7 @@ def get_neighbors(grid: list, row: int, col: int, curr_dir: str, times: int):
 
 def dijkstra(grid):
     start = (0,0)
-    end = (len(grid[0])-1, len(grid[0])-1)
+    end = (len(grid)-1, len(grid[0])-1)
 
     close = set()
     dist = {(start,"",0):0} # coord dir dirtimes: cost
@@ -57,7 +66,13 @@ def dijkstra(grid):
         cost = dist.pop(current)
 
         if current[0] == end:
-            return cost
+            if part == 1:
+                return cost
+            elif part == 2:
+                if 4<=current[2]<=10:
+                    return cost
+                else:
+                    continue
         
         close.add(current)
         
