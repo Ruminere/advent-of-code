@@ -90,7 +90,7 @@ def file_to_grid(filename: str, start=0, to_int=False):
     file = filename
     file += ".in" if file[-3:] != ".in" else ""
     count = 0
-    with open(filename + ".in") as fh:
+    with open(file) as fh:
         for line in fh:
             if count < start:
                 continue
