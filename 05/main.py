@@ -4,7 +4,6 @@ def __main__():
     filename = "actual"
     fh = open(filename + ".in")
     ans1 = 0
-    ans2 = 0
 
     inp = [line.strip() for line in fh.readlines()]
     inp = [i for i in inp if len(i) != 0]
@@ -14,20 +13,20 @@ def __main__():
     # print(inp)
 
     seeds = []
-    # for seed in seeds_raw:
-    #     seeds.append( [seed,False] )
-    for i in range(0, len(seeds_raw), 2):
-        # print("Range", seeds_raw[i], seeds_raw[i+1])
-        for j in range(seeds_raw[i], seeds_raw[i]+seeds_raw[i+1]):
-            seeds.append( [j,False] )
+    for seed in seeds_raw:
+        seeds.append( [seed,False] )
+    # for i in range(0, len(seeds_raw), 2):
+    #     # print("Range", seeds_raw[i], seeds_raw[i+1])
+    #     for j in range(seeds_raw[i], seeds_raw[i]+seeds_raw[i+1]):
+    #         seeds.append( [j,False] )
     # print(seeds)
 
     for line in inp:
         if (line[0].isalpha()): # new category
             for seed in seeds:
                 seed[1] = False
-            print(line[:-5])
-            print(seeds)
+            # print(line[:-5])
+            # print(seeds)
             continue
         nums = [int(i) for i in line.split()]
         # print(nums)
@@ -40,11 +39,8 @@ def __main__():
     for seed in seeds:
         if seed[0] < ans1:
             ans1 = seed[0]
-
-        
-
+    
     print("1:", ans1)
-    print("2:", ans2)
 
 # ==================================================s
 

@@ -3,7 +3,6 @@ import sys, collections
 def __main__():
     filename = "actual"
     fh = open(filename + ".in")
-    ans1 = 0
     ans2 = 0
 
     inp = [line.strip() for line in fh.readlines()]
@@ -12,7 +11,7 @@ def __main__():
     seeds_raw = [int(i) for i in seeds_raw.split(": ")[1].split()]
     # print(seeds_raw)
     inp.append("final stretch asufhudsifhidsfuh") # based on how the algorithm works
-    print(inp)
+    # print(inp)
 
     seeds = []
     # for seed in seeds_raw:
@@ -20,18 +19,18 @@ def __main__():
     for i in range(0, len(seeds_raw), 2):
         # print("Range", seeds_raw[i], seeds_raw[i+1])
         seeds.append([seeds_raw[i], seeds_raw[i]+seeds_raw[i+1], False])
-    print(seeds)
+    # print(seeds)
 
     groups = []
     for line in inp:
         if (line[0].isalpha()): # new category
             for seed in seeds:
                 seed[2] = False
-            print("\n")
-            print("start:", line[:-5])
-            print("before split:", seeds)
+            # print("\n")
+            # print("start:", line[:-5])
+            # print("before split:", seeds)
             seeds = split_seeds(seeds, groups)
-            print("after split:", seeds)
+            # print("after split:", seeds)
 
             for group in groups:
                 for seed in seeds:
@@ -44,7 +43,7 @@ def __main__():
                         seed[0] += group[0] - group[1]
                         seed[1] += group[0] - group[1]
                         seed[2] = True
-            print("after map:", seeds)
+            # print("after map:", seeds)
             groups = []
         else:
             groups.append([int(i) for i in line.split()])
@@ -55,14 +54,11 @@ def __main__():
         #         seed[0] += nums[0] - nums[1]
         #         seed[1] = True
     ans2 = float("inf")
-    print(seeds)
+    # print(seeds)
     for seed in seeds:
         if seed[0] < ans2:
             ans2 = seed[0]
-
-        
-
-    print("1:", ans1)
+    
     print("2:", ans2)
 
 # ==================================================
@@ -110,7 +106,6 @@ def split_seeds(original_seeds, groups):
 # print(split_seeds([[1,4,True]], groups))
 # print(split_seeds([[5,7,True]], groups))
 # print(split_seeds([[4,7,False]], groups))
-
 
 # ==================================================
 
