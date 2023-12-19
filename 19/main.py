@@ -10,7 +10,6 @@ def main():
     file = filename + ".in"
 
     ans1 = 0
-    ans2 = 0
 
     instrs = {}
     vals = []
@@ -20,7 +19,6 @@ def main():
             line = line.strip()
             # print(line)
             if len(line) == 0:
-                break
                 mode = 1
             elif mode == 0:
                 line = line.strip("}")
@@ -37,24 +35,15 @@ def main():
     # print("\n")
     # print("vals", vals)
 
-    # for val in vals:
-    #     ans1 += parse_instrs(instrs,val)
-                
-    for i in range(1,4001):
-        print(i)
-        for j in range(1,4001):
-            for k in range(1,4001):
-                for l in range(1,4001):
-                    ans2 += 1 if parse_instrs(instrs, (i,j,k,l)) else 0
+    for val in vals:
+        ans1 += parse_instrs(instrs,val)
     
-    # print("1:", ans1)
-    print("2:", ans2)
+    print("1:", ans1)
 
 # ==================================================
 
 def parse_instrs(instrs, val):
-    # x,m,a,s = val.values()
-    x,m,a,s = val
+    x,m,a,s = val.values()
     k = "in"
     # print(x,m,a,s)
     while k not in "AR":
@@ -66,8 +55,7 @@ def parse_instrs(instrs, val):
                 if eval(t[0]):
                     k = t[1]
                     break
-    # return sum(val.values()) if k == "A" else 0
-    return k == "A"
+    return sum(val.values()) if k == "A" else 0
 
 
 # ==================================================
