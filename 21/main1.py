@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../')
 from aoctools.aoc_functions import *
-import numpy as np
+import numpy.polynomial.polynomial as poly
 import itertools as it
 from collections import defaultdict, Counter, deque
 import matplotlib.pyplot as plt
@@ -13,16 +13,19 @@ def main():
 
     ans2 = 0
 
-    # grid = ftg(file)
-    # for i in rlen(grid):
-    #     for j in rlen(grid[i]):
-    #         if grid[i][j] == "S":
-    #             start = (i,j)
-    #             break
+    grid = ftg(file)
+    for i in rlen(grid):
+        for j in rlen(grid[i]):
+            if grid[i][j] == "S":
+                start = (i,j)
+                break
     
-    # nums = bfs(grid,start)
+    nums = bfs(grid,start)
+
     # plt.plot(nums)
     # plt.savefig("nums.png")
+
+    # === Wolfram stuff ===
     # s = "{"
     # for i in rlen(nums):
     #     if i % 131 in [65]:
@@ -30,9 +33,19 @@ def main():
     # s = s[:len(s)-1] + "}"
     # print(s)
 
-    f = lambda x: int((14812 * x**2)/17161 + (29615*x)/17161 + 2524/17161)
-    ans2 = f(26501365)
-    
+    # f = lambda x: int((14812 * x**2)/17161 + (29615*x)/17161 + 2524/17161)
+    # ans2 = f(26501365)
+
+    # === numpy stuff ===
+    x = []
+    y = []
+    for i in rlen(nums):
+        if i % 131 == 65:
+            x.append(i)
+            y.append(nums[i])
+    p = poly.polyfit(x,y,2)
+    ans2 = int(poly.polyval(26501365,p))-1
+
     print("2:", ans2)
 
 # ==================================================
@@ -56,7 +69,7 @@ def bfs(grid, start):
     to_explore = deque()
     to_explore.append(start)
     nums = [0]
-    for i in range(1,131*3+65):
+    for i in range(1,131*2+66):
         to_explore_new = deque()
         while to_explore:
             current = to_explore.popleft()
