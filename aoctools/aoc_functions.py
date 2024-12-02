@@ -46,6 +46,12 @@ def rlen(iterable, rev=False):
     '''
     return range(len(iterable)) if not rev else range(len(iterable)-1,-1,-1)
 
+def rlen1(iterable):
+    '''
+    Shorthand for range(len(iterable)-1). Irreversible.
+    '''
+    return range(len(iterable)-1)
+
 # GRID FUNCTIONS
 
 def grid_in_bounds(grid: list, row: int, col: int):
