@@ -11,3 +11,5 @@ Part 2, on the other hand, took forever. Look at `bruh.txt`; I was looking throu
 Only day 3 and already looking through print statements to find nonexistent bugs!
 
 P.S. The only `re` command I know in Python is `re.findall()`.
+
+P.P.S. I did this question during a take-home exam. I'm pretty sure I did awfully on it, but oh well, the lowest exam score gets dropped anyway.
