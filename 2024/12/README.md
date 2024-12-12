@@ -1,7 +1,30 @@
-# Problem 8
+# Problem 12
 | | Part 1 | Part 2 |
 |---|---|---|
-| Rank | ? | ? |
-| Time | 00:??:?? | 00:??:?? |
+| Rank | 4320 | 4902 |
+| Time | 00:37:26 | 02:22:11 |
 
-I skipped out on Days 6 and 7 since I had a ton of projects due yesterday (Dec 6) and I haven't been feeling well recently—I spent the majority of today sleeping (AoC starts at 23:00 for me since my timezone is CST). I'll probably look at them tomorrow. [I finished all three of my projects](../05/README.md), though—which I wasn't expecting, considering I procrastinated so much I was expecting to turn my Cache Lab project in late!
+Today I learned that sorting by index 1 in Python doesn't mean that it will be sorted by index 0 automatically.
+
+This took way longer than it needed to. I first tried to find whether a edge coordinate's neighbors were already in some set of edges, but that would not work for the following case (where 0 is the edge) since it is involved in more than one edge:
+```
+10
+11
+```
+I tried very hard to catch edge cases, but to no avail; I kept on either undercounting or overcounting.
+
+Then I decided to categorize everything by direction. I had two cases: up and down. Nothing worked, until I printed everything out and saw that my array was unsorted, so I sorted it without thinking much. My solution made both cases undercount by 1, but I added `4` to `edges` at the end of my function so that this wouldn't be an issue.
+
+Now, keep in mind that the coordinates are ordered as `(row,col)`, so now for left/right cases I had to sort by index 1. I did this by using `sorted(edges_raw[d], key=lambda i:i[1])`. I went absolutely crazy after seeing my modified up/down not work and tried seeing the comparisons being made between each coordinate (this was actually how I found the undercounting by 1 bug), until I printed this out (derived from the bigger sample input):
+```
+(0, -1) [(4, -1), (2, -1), (3, -1), (5, -1), (6, -1), (5, 2)]
+3
+(0, 1) [(2, 2), (3, 2), (6, 2), (5, 2), (4, 4), (5, 4)]
+2
+V0 13 12
+```
+Looking at the array for `(0,-1)` (left case) made me so angry. I thought that Python would automatically sort by index 0 when I sorted by index 1, the same way that Python would automatically sort by index 1 when I used `sorted()` without a key. I thus used normal sort first, then sorted by index 1 to fix the issue.
+
+I was just so done when I saw the `1206` pop up on my screen, so I tiredly Ctrl-Z'ed to my actual input and finally got the correct answer.
+
+I think I'm too sleepy to be angry. I need sleep. But I need to finish grading people's homework since I'm a TA for an intro Python class...
