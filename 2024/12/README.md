@@ -28,3 +28,5 @@ Looking at the array for `(0,-1)` (left case) made me so angry. I thought that P
 I was just so done when I saw the `1206` pop up on my screen, so I tiredly Ctrl-Z'ed to my actual input and finally got the correct answer.
 
 I think I'm too sleepy to be angry. I need sleep. But I need to finish grading people's homework since I'm a TA for an intro Python class...
+
+But hey, about time for another [hall of shame](../README.md#hall-of-shame) entry! Really feeling the "shame" part tonight.
