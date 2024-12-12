@@ -46,14 +46,13 @@ def solve(grid):
             if not any(current in plots[grid[i][j]+str(p)] for p in range(plots_dupl[grid[i][j]])):
                 plots_dupl[grid[i][j]] = plots_dupl[grid[i][j]] + 1
                 plots[plot] = bfs(grid,current)
-    print(plots)
+
     for plot, coords in plots.items():
         area = len(coords)
         perimeter = find_perimeter(grid, coords)
         edges = find_edges(grid, coords)
         ans1 += area*perimeter
         ans2 += area*edges
-        print(plot,area,edges)
     
     return ans1, ans2
 
@@ -98,27 +97,19 @@ def find_edges(grid, coords):
                 edges_raw[d].append(nbr)
     for d in [(-1,0),(1,0)]:
         edge_raw = sorted(edges_raw[d])
-        # print(d,edge_raw)
         for i in rlen1(edge_raw):
             c0 = edge_raw[i]
             c1 = edge_raw[i+1]
             if c0[0] != c1[0] or abs(c0[1]-c1[1]) != 1:
                 edges += 1
-        # print(edges)
     for d in [(0,-1),(0,1)]:
         edge_raw = sorted(edges_raw[d])
         edge_raw.sort(key=lambda i:i[1])
-        print(d,edge_raw)
-        c = 0
         for i in rlen1(edge_raw):
             c0 = edge_raw[i]
             c1 = edge_raw[i+1]
             if c0[1] != c1[1] or abs(c0[0]-c1[0]) != 1:
-                c += 1
                 edges += 1
-        print(c)
-        
-        # print(edges)
         
     return edges+4
 
