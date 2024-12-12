@@ -4,6 +4,8 @@
 | Rank | 4320 | 4902 |
 | Time | 00:37:26 | 02:22:11 |
 
+**Addendum, more than 16 hours after the problem dropped**: Although most of this rant is about part 2, I just realized that I did not need to make part 1 so complicated. I kept track of all the letters, which meant that I also kept track of the number of times I'd seen each letter to account for letters showing up more than once. I did not need to keep track of the letters themselves. Dang, would've saved me so much time on part 1.
+
 Today I learned that sorting by index 1 in Python doesn't mean that it will be sorted by index 0 automatically.
 
 This took way longer than it needed to. I first tried to find whether a edge coordinate's neighbors were already in some set of edges, but that would not work for the following case, where 1 is the plot, since `0` is a corner and is involved in more than one edge:
