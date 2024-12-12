@@ -6,7 +6,7 @@
 
 Today I learned that sorting by index 1 in Python doesn't mean that it will be sorted by index 0 automatically.
 
-This took way longer than it needed to. I first tried to find whether a edge coordinate's neighbors were already in some set of edges, but that would not work for the following case (where 0 is the edge) since it is involved in more than one edge:
+This took way longer than it needed to. I first tried to find whether a edge coordinate's neighbors were already in some set of edges, but that would not work for the following case, where 1 is the plot, since `0` is a corner and is involved in more than one edge:
 ```
 10
 11
