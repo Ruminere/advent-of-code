@@ -7,7 +7,7 @@ import time
 SESSION = ''
 
 parser = argparse.ArgumentParser(description='Automatically retrieve your Advent of Code input. Supply your own cookie: Inspect Element -> Application -> Cookies -> session')
-parser.add_argument('--year', '-y', type=int, default=2024)
+parser.add_argument('--year', '-y', type=int, default=datetime.now(timezone.utc).year)
 parser.add_argument('--day', '-d', type=int, choices=range(1,26), metavar="(1 to 25)", default=datetime.now(timezone.utc).day)
 args = parser.parse_args()
 
