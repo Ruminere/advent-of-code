@@ -3,7 +3,7 @@ Another year, another Advent of Code! I repurposed the current repo so that I co
 
 Once again, these were my solutions for [Advent of Code 2024](https://adventofcode.com/2024). I kept my solutions the way I had them when submitting the output, so some code may be messy (or quite inefficient, or specific to my input).
 
-As of November 24, 2024, I am planning on working on the `aoctools` package again; specifically, the module that would allow me to automatically fetch the solutions from the internet (`aoc_web.py`).
+As of November 24, 2024, I am planning on working on the `aoctools` package again; specifically, the module that would allow me to automatically fetch the solutions from the internet (`aoc_web.py`). **Addendum**: I did this on December 12, 2024 (and finished polishing it on December 13)!
 
 ## Usage
 Simply go to every folder and run `python3 main.py`.
