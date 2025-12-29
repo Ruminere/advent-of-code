@@ -28,7 +28,7 @@ int main()
     // =============== PROCESS EACH LINE ===============
     while (getline(&line, &size, input_file) != -1) {
         // conversion
-        printf("%s", line);
+        // printf("%s", line);
         direction = line[0];
         int i;
         for (i = 1; isdigit(line[i]); i++) {
@@ -40,7 +40,7 @@ int main()
         turns %= 100;
         if (direction == 'L') turns *= -1;
         
-        printf("%d\n", turns);
+        // printf("%d\n", turns);
 
         // logic
         if ( (abs(dial) < abs(turns)) && ((dial>0 && turns<0) || (dial<0 && turns>0)) ) {
@@ -52,7 +52,7 @@ int main()
 
         dial += turns;
         dial %= 100;
-        printf("after: %d\n", dial);
+        // printf("after: %d\n", dial);
         if (!dial) counter1++;
     }
     // =============== PROCESS EACH LINE ===============
