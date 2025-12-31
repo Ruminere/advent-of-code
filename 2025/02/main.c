@@ -32,7 +32,7 @@ long valid_range(long start, long end, long startseq, long endseq) {
     for (long curseq_num = startseq; curseq_num <= endseq; curseq_num++) {
         long current = pow(10,num_digits(curseq_num))*curseq_num + curseq_num;
         if (current >= start && current <= end) {
-            printf("hit: %ld\n", current);
+            // printf("hit: %ld\n", current);
             sum += current;
         }   
     }
@@ -48,6 +48,9 @@ long split_number(long num, long split) {
     return num/pow(10,split);
 }
 
+/**
+ * Returns the answer for each range for part 1.
+ */
 long part1(long start, long end, long multiplier) {
     long start_digits = num_digits(start);
     long end_digits = num_digits(end);
@@ -65,14 +68,48 @@ long part1(long start, long end, long multiplier) {
         }
     }
     else if (end_digits % 2 == 0) {
-        split = (short)(end_digits/2);
+        split = end_digits/2;
         endseq = split_number(end, split);
         startseq = pow(10,split-1);
     }
-    printf("valid_range params: %ld, %ld, %ld, %ld\n", start, end, startseq, endseq);
+    // printf("valid_range params: %ld, %ld, %ld, %ld\n", start, end, startseq, endseq);
 
     long sum = valid_range(start, end, startseq, endseq)*multiplier;
-    printf("sum: %ld\n", sum);
+    // printf("sum: %ld\n", sum);
+    return sum;
+}
+
+/**
+ * Returns the answer for each range for part 2.
+ * C is fast enough lmao I give up on optimization
+ */
+long part2(long start, long end, long multiplier) {
+    long sum = 0;
+
+    long start_digits = num_digits(start);
+    long end_digits = num_digits(end);
+    long split;
+
+    for (long current = start; current <= end; current++) {
+        long current_digits = num_digits(current);
+        for (long i = 1; i <= current_digits/2; i++) {
+            if (current_digits % i != 0) continue;
+
+            char current_str[32];
+            snprintf(current_str, sizeof(current_str), "%ld", current);
+
+            bool hit = true;
+            for (long j = 0; j < current_digits; j++) {
+                if (current_str[j] != current_str[j%i]) {
+                    hit = false;
+                }
+            }
+            if (hit) {
+                sum += current;
+                break;
+            }
+        }
+    }
     return sum;
 }
 
@@ -93,7 +130,7 @@ int main()
 
     // =============== PROCESS EACH LINE ===============
     while (getline(&line, &size, input_file) != -1) {
-        printf("%s\n", line);
+        // printf("%s\n", line);
     }
     // =============== PROCESS EACH LINE ===============
 
@@ -103,7 +140,7 @@ int main()
         bool subtract;
 
         if (sscanf(current, "%ld-%ld", &start, &end) == 2) {
-            printf("now on: %ld-%ld\n", start, end);
+            // printf("now on: %ld-%ld\n", start, end);
         } else {
             printf("ERROR: badly formatted range: %s", current);
             return 1;
@@ -118,6 +155,7 @@ int main()
         }
 
         counter1 += part1(start, end, multiplier);
+        counter2 += part2(start, end, multiplier);
     }
 
     printf("Part 1: %ld\n", counter1);
