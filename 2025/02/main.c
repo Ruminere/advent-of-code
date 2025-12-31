@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include <math.h>
 
+#define FILE_TO_OPEN "test.in"
+
 /**
  * Returns the number of digits in num.
  */
@@ -48,7 +50,6 @@ long split_number(long num, long split) {
 
 int main()
 {
-    char* file_to_open = "actual.in";
     FILE* input_file;
     char* line = NULL;
     size_t size = 32;
@@ -56,9 +57,9 @@ int main()
     long counter1 = 0;
     long counter2 = 0;
 
-    input_file = fopen(file_to_open, "r");
+    input_file = fopen(FILE_TO_OPEN, "r");
     if (input_file == NULL) {
-        printf("ERROR: Cannot open %s!", file_to_open);
+        printf("ERROR: Cannot open %s!", FILE_TO_OPEN);
         return 1;
     }
 
