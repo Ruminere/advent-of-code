@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <math.h>
 
-#define FILE_TO_OPEN "test.in"
+#define FILE_TO_OPEN "actual.in"
 
 /**
  * Returns the number of digits in num.
@@ -48,6 +48,34 @@ long split_number(long num, long split) {
     return num/pow(10,split);
 }
 
+long part1(long start, long end, long multiplier) {
+    long start_digits = num_digits(start);
+    long end_digits = num_digits(end);
+    long split;
+    long startseq = 0, endseq = 0;
+    if (start_digits % 2 == 0) {
+        split = start_digits/2;
+        startseq = split_number(start, split);
+
+        if (start_digits == end_digits) {
+            endseq = split_number(end, split);
+        }
+        else {
+            endseq = pow(10,split)-1;
+        }
+    }
+    else if (end_digits % 2 == 0) {
+        split = (short)(end_digits/2);
+        endseq = split_number(end, split);
+        startseq = pow(10,split-1);
+    }
+    printf("valid_range params: %ld, %ld, %ld, %ld\n", start, end, startseq, endseq);
+
+    long sum = valid_range(start, end, startseq, endseq)*multiplier;
+    printf("sum: %ld\n", sum);
+    return sum;
+}
+
 int main()
 {
     FILE* input_file;
@@ -89,30 +117,7 @@ int main()
             multiplier = -1;
         }
 
-        long start_digits = num_digits(start);
-        long end_digits = num_digits(end);
-        long split;
-        long startseq = 0, endseq = 0;
-        if (start_digits % 2 == 0) {
-            split = start_digits/2;
-            startseq = split_number(start, split);
-
-            if (start_digits == end_digits) {
-                endseq = split_number(end, split);
-            }
-            else {
-                endseq = pow(10,split)-1;
-            }
-        }
-        else if (end_digits % 2 == 0) {
-            split = (short)(end_digits/2);
-            endseq = split_number(end, split);
-            startseq = pow(10,split-1);
-        }
-        printf("valid_range params: %ld, %ld, %ld, %ld\n", start, end, startseq, endseq);
-        long sum = valid_range(start, end, startseq, endseq)*multiplier;
-        printf("sum: %ld\n", sum);
-        counter1 += sum;
+        counter1 += part1(start, end, multiplier);
     }
 
     printf("Part 1: %ld\n", counter1);
